@@ -1,0 +1,25 @@
+# ide
+.idea/
+.vscode/
+
+# env
+.env
+
+# environment
+venv/
+.venv/
+
+# logs
+.log
+.log.*
+
+# cache
+__pycache__/
+.cache/
+.cache.*
+
+# build
+build/
+dist/
+*.egg-info/
+*.egg

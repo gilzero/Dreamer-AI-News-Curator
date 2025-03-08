@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dreamer AI News Curator</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fa-solid fa-dove me-2 brand-icon"></i>Dreamer AI News
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/"><i class="fa-solid fa-feather-pointed me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#configModal">
+                            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> Configure
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="refresh-btn"><i class="fa-solid fa-wind me-1"></i> Refresh</a>
+                    </li>
+                </ul>
+                <div class="d-flex ms-lg-3">
+                    <button class="btn btn-sm theme-toggle" id="theme-toggle">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-5 text-center header-section">
+        <div class="container">
+            <div class="logo-container mb-3" data-aos="zoom-in">
+                <i class="fa-solid fa-dove logo-icon"></i>
+            </div>
+            <h1 class="display-4 fw-bold" data-aos="fade-up">Dreamer AI News Curator</h1>
+            <p class="lead" data-aos="fade-up" data-aos-delay="100">
+                <i class="fa-solid fa-feather-pointed me-2"></i>AI-powered tech news curated just for you
+            </p>
+            <div class="d-flex justify-content-center mt-4 badge-container" data-aos="fade-up" data-aos-delay="200">
+                <span class="badge rounded-pill me-2 badge-bounce"><i class="fa-solid fa-microchip me-1"></i>AI</span>
+                <span class="badge rounded-pill me-2 badge-bounce delay-1"><i class="fa-solid fa-code me-1"></i>Tech</span>
+                <span class="badge rounded-pill badge-bounce delay-2"><i class="fa-solid fa-newspaper me-1"></i>News</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-4" role="main">
+        <div id="loading" class="text-center py-5">
+            <div class="spinner-grow" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3"><i class="fa-solid fa-feather-pointed me-2 fa-bounce"></i>Curating the latest tech news...</p>
+        </div>
+
+        {% if error %}
+            <div class="alert custom-alert alert-dismissible fade show" role="alert">
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                    <div>{{ error }}</div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+
+        <div id="articles-container">
+            {% if grouped_articles %}
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="section-title"><i class="fa-solid fa-sparkles me-2 fa-fade"></i>Latest Articles</h2>
+                            <div class="view-controls">
+                                <button class="btn btn-sm view-btn active" data-view="card" aria-label="Card view">
+                                    <i class="fa-solid fa-table-cells me-1"></i>
+                                </button>
+                                <button class="btn btn-sm view-btn" data-view="list" aria-label="List view">
+                                    <i class="fa-solid fa-list me-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% for source, articles in grouped_articles.items() %}
+                    <section aria-label="Articles from {{ source }}" class="mb-5" data-aos="fade-up">
+                        <div class="source-header">
+                            <h3 class="source-title"><i class="fa-solid fa-feather-pointed me-2"></i>{{ source }}</h3>
+                            <div class="source-line"></div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 article-grid">
+                            {% for article in articles %}
+                                <div class="col">
+                                    <article class="card h-100 article-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="source-badge"><i class="fa-solid fa-globe me-1"></i>{{ article.source }}</span>
+                                                <small class="text-muted"><i class="fa-regular fa-calendar-days me-1"></i>{{ article.formatted_date }}</small>
+                                            </div>
+                                            <h5 class="card-title">
+                                                <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer" class="article-link">
+                                                    {{ article.title }}
+                                                </a>
+                                            </h5>
+                                            <div class="mt-auto pt-3 d-flex justify-content-between align-items-center">
+                                                <a href="{{ article.url }}" class="btn btn-sm read-more" target="_blank" rel="noopener noreferrer">
+                                                    Read more <i class="fa-solid fa-arrow-right ms-1"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-icon save-article" data-url="{{ article.url }}" aria-label="Save article">
+                                                    <i class="fa-regular fa-bookmark"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state text-center py-5" data-aos="fade-up">
+                    <i class="fa-solid fa-dove empty-icon fa-beat-fade"></i>
+                    <h3 class="mt-4">No Articles Found</h3>
+                    <p class="text-muted">We couldn't find any articles at the moment. Please try again later.</p>
+                    <button id="retry-btn" class="btn btn-primary mt-3">
+                        <i class="fa-solid fa-arrows-rotate me-2"></i>Retry
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer class="footer py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fa-solid fa-dove me-2"></i>Dreamer AI News Curator</h5>
+                    <p><i class="fa-solid fa-bolt-lightning me-1"></i>Powered by Dreamer Semantic Search</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        © {{ "now"|datetimeformat("%Y") }} Dreamer AI News Curator
+                    </p>
+                    <div class="mt-2">
+                        <a href="https://dreamer.xyz" class="social-link" target="_blank">
+                            <i class="fa-solid fa-book"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="btn btn-icon" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fa-solid fa-dove me-2 text-primary"></i>
+                <strong class="me-auto">Dreamer AI News</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Toast message will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="configModalLabel"><i class="fa-solid fa-feather-pointed me-2"></i>Configure News Feed</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="configForm" action="/" method="get">
+                        <div class="mb-3">
+                            <label for="domains" class="form-label"><i class="fa-solid fa-globe me-1"></i>Domains (comma-separated)</label>
+                            <input type="text" class="form-control" id="domains" name="domains" 
+                                   value="{{ domains_str }}" 
+                                   placeholder="techcrunch.com,36kr.com,news.qq.com">
+                            <div class="form-text">Enter the domains you want to fetch news from, separated by commas.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="articles_per_domain" class="form-label"><i class="fa-solid fa-newspaper me-1"></i>Articles per Domain</label>
+                            <input type="number" class="form-control" id="articles_per_domain" name="articles_per_domain" 
+                                   value="{{ config.articles_per_domain }}" min="1" max="50">
+                            <div class="form-text">Number of articles to fetch from each domain.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lookback_days" class="form-label"><i class="fa-solid fa-calendar-days me-1"></i>Lookback Days</label>
+                            <input type="number" class="form-control" id="lookback_days" name="lookback_days" 
+                                   value="{{ config.lookback_days }}" min="1" max="30">
+                            <div class="form-text">Number of days to look back for articles.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-check me-1"></i>Apply Configuration</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Pass template variables to JavaScript -->
+    <script>
+        // Pass configuration from Jinja to JavaScript
+        window.appConfig = {
+            domains: "{{ domains_str|default('') }}",
+            articlesPerDomain: "{{ config.articles_per_domain|default(5) }}",
+            lookbackDays: "{{ config.lookback_days|default(7) }}"
+        };
+    </script>
+    
+    <!-- Custom JS -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
