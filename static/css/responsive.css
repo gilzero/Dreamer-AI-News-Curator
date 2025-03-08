@@ -1,0 +1,20 @@
+@media (max-width: 767.98px) {
+    .header-section {
+        padding: 3rem 0 2rem;
+    }
+    
+    .card-title {
+        font-size: 1.25rem;
+    }
+    
+    #back-to-top {
+        width: 40px;
+        height: 40px;
+        right: 15px;
+        bottom: -50px;
+    }
+    
+    #back-to-top.show {
+        bottom: 15px;
+    }
+} 

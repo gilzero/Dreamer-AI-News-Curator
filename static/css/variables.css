@@ -1,0 +1,75 @@
+:root {
+    /* Light theme variables - Updated for better harmony and accessibility */
+    --bg-color: #f8fafc;
+    --text-color: #1e293b;
+    --card-bg: #ffffff;
+    --card-border: rgba(0, 0, 0, 0.05);
+    --nav-bg: #ffffff;
+    --nav-shadow: rgba(0, 0, 0, 0.05);
+    --primary-color: #3b82f6; /* Softer blue that's more bird-like */
+    --primary-rgb: 59, 130, 246;
+    --secondary-color: #64748b;
+    --accent-color: #06b6d4; /* Cyan for accent - like sky for birds */
+    --hover-color: #2563eb;
+    --badge-bg: #dbeafe;
+    --badge-text: #1d4ed8;
+    --footer-bg: #f1f5f9;
+    --header-bg: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); /* Softer blue gradient */
+    --alert-bg: #fff8f1;
+    --alert-border: #ffedd5;
+    --alert-text: #9a3412;
+    --source-badge-bg: #e0f2fe;
+    --source-badge-text: #0369a1;
+    --source-line: #e2e8f0;
+    --empty-icon: #93c5fd;
+    --btn-icon-bg: rgba(255, 255, 255, 0.9);
+    --btn-icon-color: #3b82f6;
+    --social-link-bg: #e2e8f0;
+    --social-link-color: #3b82f6;
+    --logo-color: #3b82f6; /* Matching primary color */
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+    --read-more-bg: #eff6ff;
+    --read-more-text: #3b82f6;
+    --read-more-hover-bg: #dbeafe;
+    --view-btn-active-bg: #dbeafe;
+    --view-btn-active-color: #3b82f6;
+    --view-btn-color: #64748b;
+}
+
+[data-theme="dark"] {
+    /* Dark theme variables - Updated for better contrast and readability */
+    --bg-color: #0f172a; /* Deeper blue for night sky feel */
+    --text-color: #e2e8f0;
+    --card-bg: #1e293b;
+    --card-border: rgba(255, 255, 255, 0.05);
+    --nav-bg: #1e293b;
+    --nav-shadow: rgba(0, 0, 0, 0.2);
+    --primary-color: #60a5fa; /* Lighter blue for better visibility */
+    --primary-rgb: 96, 165, 250;
+    --secondary-color: #94a3b8;
+    --accent-color: #22d3ee; /* Brighter cyan for dark mode */
+    --hover-color: #93c5fd;
+    --badge-bg: #1e40af;
+    --badge-text: #bfdbfe;
+    --footer-bg: #1e293b;
+    --header-bg: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); /* Deep blue gradient */
+    --alert-bg: #422006;
+    --alert-border: #7c2d12;
+    --alert-text: #fdba74;
+    --source-badge-bg: #0c4a6e;
+    --source-badge-text: #bae6fd;
+    --source-line: #475569;
+    --empty-icon: #60a5fa;
+    --btn-icon-bg: rgba(30, 41, 59, 0.9);
+    --btn-icon-color: #bfdbfe;
+    --social-link-bg: #334155;
+    --social-link-color: #bfdbfe;
+    --logo-color: #60a5fa; /* Matching primary color */
+    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    --read-more-bg: #1e40af;
+    --read-more-text: #bfdbfe;
+    --read-more-hover-bg: #2563eb;
+    --view-btn-active-bg: #1e40af;
+    --view-btn-active-color: #bfdbfe;
+    --view-btn-color: #94a3b8;
+} 
