@@ -17,7 +17,7 @@
 }
 
 /* Chinese summary styling */
-.chinese-summary-container {
+.chinese-summary-container, .original-content-container {
     background-color: rgba(var(--primary-rgb), 0.05);
     border-radius: 12px;
     padding: 1.5rem;

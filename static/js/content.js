@@ -141,40 +141,12 @@ export const fetchArticleContent = async (url, elements) => {
                         </div>
                     </div>
                     <div class="content-divider mb-4"></div>
-                    <div class="original-content-header">
-                        <button class="btn btn-link collapsed p-0 text-decoration-none d-flex align-items-center" 
-                                type="button" 
-                                data-bs-toggle="collapse" 
-                                data-bs-target="#originalContentCollapse" 
-                                aria-expanded="false" 
-                                aria-controls="originalContentCollapse">
-                            <h3 class="mb-0"><i class="fa-solid fa-file-lines me-2"></i>Original Content</h3>
-                            <i class="fa-solid fa-chevron-down ms-2 toggle-icon"></i>
-                        </button>
-                        <div class="summary-divider"></div>
-                    </div>
-                    <div class="collapse" id="originalContentCollapse">
-                        <div class="extracted-text">${data.content}</div>
-                    </div>
+                    ${getOriginalContentSection(data.content)}
                 `;
             } else {
                 formattedContent += `
                     ${sourceLabel}
-                    <div class="original-content-header">
-                        <button class="btn btn-link collapsed p-0 text-decoration-none d-flex align-items-center" 
-                                type="button" 
-                                data-bs-toggle="collapse" 
-                                data-bs-target="#originalContentCollapse" 
-                                aria-expanded="false" 
-                                aria-controls="originalContentCollapse">
-                            <h3 class="mb-0"><i class="fa-solid fa-file-lines me-2"></i>Original Content</h3>
-                            <i class="fa-solid fa-chevron-down ms-2 toggle-icon"></i>
-                        </button>
-                        <div class="summary-divider"></div>
-                    </div>
-                    <div class="collapse" id="originalContentCollapse">
-                        <div class="extracted-text">${data.content}</div>
-                    </div>
+                    ${getOriginalContentSection(data.content)}
                 `;
             }
         } else {
@@ -197,6 +169,33 @@ export const fetchArticleContent = async (url, elements) => {
         contentError.classList.remove('d-none');
         errorMessage.textContent = error.message || 'Failed to load content';
     }
+};
+
+/**
+ * Helper function to generate the original content section HTML
+ * @param {string} content - The original content to display
+ * @returns {string} HTML for the original content section
+ */
+const getOriginalContentSection = (content) => {
+    return `
+        <div class="original-content-container mb-4">
+        <div class="original-content-header">
+            <button class="btn btn-link collapsed p-0 text-decoration-none d-flex align-items-center" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#originalContentCollapse" 
+                    aria-expanded="false" 
+                    aria-controls="originalContentCollapse">
+                <h3 class="mb-0"><i class="fa-solid fa-file-lines me-2"></i>Original Content</h3>
+                <i class="fa-solid fa-chevron-down ms-2 toggle-icon"></i>
+            </button>
+            <div class="summary-divider"></div>
+        </div>
+        <div class="collapse" id="originalContentCollapse">
+            <div class="extracted-text">${content}</div>
+        </div>
+        </div>
+    `;
 };
 
 /**

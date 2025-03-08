@@ -52,31 +52,6 @@
     border-radius: 3px;
 }
 
-.view-controls {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.view-btn {
-    background-color: transparent;
-    border: none;
-    color: var(--view-btn-color);
-    font-size: 1.2rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.view-btn:hover {
-    background-color: rgba(var(--primary-rgb), 0.1);
-    color: var(--primary-color);
-}
-
-.view-btn.active {
-    background-color: var(--view-btn-active-bg);
-    color: var(--view-btn-active-color);
-}
-
 .source-badge {
     background-color: var(--source-badge-bg);
     color: var(--source-badge-text);
@@ -115,11 +90,6 @@
 .article-link:hover {
     text-decoration: none;
     color: var(--text-color);
-}
-
-.article-list .article-card {
-    margin-bottom: 1.5rem;
-    height: auto;
 }
 
 .empty-state {

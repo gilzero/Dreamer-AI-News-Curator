@@ -4,7 +4,6 @@ import { initializeThemeToggle } from './theme.js';
 import { 
     initializeLogoIcon, 
     initializeArticleCardEffects, 
-    initializeViewToggle, 
     initializeBackToTop, 
     initializeRefreshButton, 
     initializeRetryButton 
@@ -26,7 +25,6 @@ export const initializeApp = () => {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle.querySelector('i');
     const backToTopBtn = document.getElementById('back-to-top');
-    const viewButtons = document.querySelectorAll('.view-btn');
     const articleGrid = document.querySelector('.article-grid');
     const refreshBtn = document.getElementById('refresh-btn');
     const retryBtn = document.getElementById('retry-btn');
@@ -61,7 +59,6 @@ export const initializeApp = () => {
     initializeLogoIcon(logoIcon);
     initializeArticleCardEffects(articlesContainer);
     initializeThemeToggle(themeToggle, themeIcon);
-    initializeViewToggle(viewButtons, articleGrid);
     initializeBackToTop(backToTopBtn);
     initializeRefreshButton(refreshBtn);
     initializeRetryButton(retryBtn);

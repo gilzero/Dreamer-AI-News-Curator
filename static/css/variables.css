@@ -31,9 +31,6 @@
     --read-more-bg: #eff6ff;
     --read-more-text: #3b82f6;
     --read-more-hover-bg: #dbeafe;
-    --view-btn-active-bg: #dbeafe;
-    --view-btn-active-color: #3b82f6;
-    --view-btn-color: #64748b;
 }
 
 [data-theme="dark"] {
@@ -69,7 +66,4 @@
     --read-more-bg: #1e40af;
     --read-more-text: #bfdbfe;
     --read-more-hover-bg: #2563eb;
-    --view-btn-active-bg: #1e40af;
-    --view-btn-active-color: #bfdbfe;
-    --view-btn-color: #94a3b8;
 } 

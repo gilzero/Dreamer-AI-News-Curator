@@ -39,48 +39,6 @@ export const initializeArticleCardEffects = (articlesContainer) => {
 };
 
 /**
- * Initializes the view toggle functionality (card/list view)
- * @param {NodeList} viewButtons - The view toggle buttons
- * @param {HTMLElement} articleGrid - The article grid element
- */
-export const initializeViewToggle = (viewButtons, articleGrid) => {
-    viewButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const view = button.getAttribute('data-view');
-            
-            // Remove active class from all buttons
-            viewButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            // Toggle the view class on the article grid
-            if (articleGrid) {
-                if (view === 'list') {
-                    articleGrid.classList.add('article-list');
-                    showToast('Switched to list view 📋');
-                } else {
-                    articleGrid.classList.remove('article-list');
-                    showToast('Switched to card view 🃏');
-                }
-            }
-            
-            // Save the view preference
-            localStorage.setItem('preferred-view', view);
-        });
-    });
-    
-    // Apply saved view preference
-    const savedView = localStorage.getItem('preferred-view');
-    if (savedView) {
-        const targetButton = document.querySelector(`.view-btn[data-view="${savedView}"]`);
-        if (targetButton) {
-            targetButton.click();
-        }
-    }
-};
-
-/**
  * Initializes the back-to-top button functionality
  * @param {HTMLElement} backToTopBtn - The back-to-top button element
  */
