@@ -1,69 +1,93 @@
 :root {
-    /* Light theme variables - Updated for better harmony and accessibility */
+    /* Light theme variables - Modernized for better visual appeal */
     --bg-color: #f8fafc;
     --text-color: #1e293b;
     --card-bg: #ffffff;
-    --card-border: rgba(0, 0, 0, 0.05);
-    --nav-bg: #ffffff;
-    --nav-shadow: rgba(0, 0, 0, 0.05);
-    --primary-color: #3b82f6; /* Softer blue that's more bird-like */
-    --primary-rgb: 59, 130, 246;
+    --card-border: rgba(0, 0, 0, 0.03);
+    --nav-bg: rgba(255, 255, 255, 0.8);
+    --nav-shadow: rgba(0, 0, 0, 0.04);
+    --primary-color: #4f46e5; /* Modern indigo */
+    --primary-rgb: 79, 70, 229;
     --secondary-color: #64748b;
-    --accent-color: #06b6d4; /* Cyan for accent - like sky for birds */
-    --hover-color: #2563eb;
-    --badge-bg: #dbeafe;
-    --badge-text: #1d4ed8;
+    --accent-color: #8b5cf6; /* Vibrant purple for accent */
+    --accent-rgb: 139, 92, 246;
+    --hover-color: #6366f1;
+    --badge-bg: #ede9fe;
+    --badge-text: #6d28d9;
     --footer-bg: #f1f5f9;
-    --header-bg: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); /* Softer blue gradient */
+    --header-bg: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%); /* Modern purple gradient */
     --alert-bg: #fff8f1;
     --alert-border: #ffedd5;
     --alert-text: #9a3412;
-    --source-badge-bg: #e0f2fe;
-    --source-badge-text: #0369a1;
+    --source-badge-bg: #f5f3ff;
+    --source-badge-text: #6d28d9;
     --source-line: #e2e8f0;
-    --empty-icon: #93c5fd;
+    --empty-icon: #a5b4fc;
     --btn-icon-bg: rgba(255, 255, 255, 0.9);
-    --btn-icon-color: #3b82f6;
+    --btn-icon-color: #4f46e5;
     --social-link-bg: #e2e8f0;
-    --social-link-color: #3b82f6;
-    --logo-color: #3b82f6; /* Matching primary color */
-    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-    --read-more-bg: #eff6ff;
-    --read-more-text: #3b82f6;
-    --read-more-hover-bg: #dbeafe;
+    --social-link-color: #4f46e5;
+    --logo-color: #4f46e5; /* Matching primary color */
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    --read-more-bg: #ede9fe;
+    --read-more-text: #6d28d9;
+    --read-more-hover-bg: #ddd6fe;
+    --card-highlight: rgba(79, 70, 229, 0.1);
+    --card-hover-transform: translateY(-8px);
+    --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --nav-item-hover: #ede9fe;
+    --nav-item-active: #ddd6fe;
+    
+    /* Glassmorphism variables */
+    --glass-shadow: rgba(0, 0, 0, 0.05);
+    --border-light: rgba(255, 255, 255, 0.2);
+    --text-on-glass: #1e293b;
+    --card-bg-rgb: 255, 255, 255;
 }
 
 [data-theme="dark"] {
-    /* Dark theme variables - Updated for better contrast and readability */
+    /* Dark theme variables - Modernized for better visual appeal */
     --bg-color: #0f172a; /* Deeper blue for night sky feel */
     --text-color: #e2e8f0;
     --card-bg: #1e293b;
-    --card-border: rgba(255, 255, 255, 0.05);
-    --nav-bg: #1e293b;
+    --card-border: rgba(255, 255, 255, 0.03);
+    --nav-bg: rgba(30, 41, 59, 0.85);
     --nav-shadow: rgba(0, 0, 0, 0.2);
-    --primary-color: #60a5fa; /* Lighter blue for better visibility */
-    --primary-rgb: 96, 165, 250;
+    --primary-color: #a5b4fc; /* Lighter purple for better visibility */
+    --primary-rgb: 165, 180, 252;
     --secondary-color: #94a3b8;
-    --accent-color: #22d3ee; /* Brighter cyan for dark mode */
-    --hover-color: #93c5fd;
-    --badge-bg: #1e40af;
-    --badge-text: #bfdbfe;
+    --accent-color: #c4b5fd; /* Brighter purple for dark mode */
+    --accent-rgb: 196, 181, 253;
+    --hover-color: #818cf8;
+    --badge-bg: #4c1d95;
+    --badge-text: #ddd6fe;
     --footer-bg: #1e293b;
-    --header-bg: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); /* Deep blue gradient */
+    --header-bg: linear-gradient(135deg, #2e1065 0%, #4c1d95 100%); /* Deep purple gradient */
     --alert-bg: #422006;
     --alert-border: #7c2d12;
     --alert-text: #fdba74;
-    --source-badge-bg: #0c4a6e;
-    --source-badge-text: #bae6fd;
+    --source-badge-bg: #4c1d95;
+    --source-badge-text: #ddd6fe;
     --source-line: #475569;
-    --empty-icon: #60a5fa;
+    --empty-icon: #a5b4fc;
     --btn-icon-bg: rgba(30, 41, 59, 0.9);
-    --btn-icon-color: #bfdbfe;
+    --btn-icon-color: #ddd6fe;
     --social-link-bg: #334155;
-    --social-link-color: #bfdbfe;
-    --logo-color: #60a5fa; /* Matching primary color */
-    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-    --read-more-bg: #1e40af;
-    --read-more-text: #bfdbfe;
-    --read-more-hover-bg: #2563eb;
+    --social-link-color: #ddd6fe;
+    --logo-color: #a5b4fc; /* Matching primary color */
+    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    --read-more-bg: #4c1d95;
+    --read-more-text: #ddd6fe;
+    --read-more-hover-bg: #6d28d9;
+    --card-highlight: rgba(165, 180, 252, 0.1);
+    --card-hover-transform: translateY(-8px);
+    --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    --nav-item-hover: #312e81;
+    --nav-item-active: #4c1d95;
+    
+    /* Glassmorphism variables for dark mode */
+    --glass-shadow: rgba(0, 0, 0, 0.25);
+    --border-light: rgba(255, 255, 255, 0.05);
+    --text-on-glass: rgba(255, 255, 255, 0.9);
+    --card-bg-rgb: 15, 23, 42;
 } 

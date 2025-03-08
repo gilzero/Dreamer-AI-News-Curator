@@ -1,7 +1,7 @@
 {% if error %}
     <div class="alert custom-alert alert-dismissible fade show" role="alert">
         <div class="d-flex align-items-center">
-            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+            <i class="fa-solid fa-triangle-exclamation me-2 fa-bounce"></i>
             <div>{{ error }}</div>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -10,40 +10,47 @@
 
 <div id="articles-container">
     {% if grouped_articles %}
-        <div class="row mb-4">
-            <div class="col-12">
-                <h2 class="section-title"><i class="fa-solid fa-sparkles me-2 fa-fade"></i>Latest Articles</h2>
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title" data-aos="fade-up"><i class="fa-solid fa-sparkles me-2 fa-fade"></i>Latest Articles</h2>
+                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Curated tech news from around the web, updated daily</p>
             </div>
         </div>
 
         {% for source, articles in grouped_articles.items() %}
-            <section aria-label="Articles from {{ source }}" class="mb-5" data-aos="fade-up">
+            <section aria-label="Articles from {{ source }}" class="mb-5 source-section" data-aos="fade-up">
                 <div class="source-header">
-                    <h3 class="source-title"><i class="fa-solid fa-feather-pointed me-2"></i>{{ source }}</h3>
+                    <h3 class="source-title"><i class="fa-solid fa-feather-pointed"></i>{{ source }}</h3>
                     <div class="source-line"></div>
                 </div>
+                <p class="source-description">Latest tech news from {{ source }}</p>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 article-grid">
                     {% for article in articles %}
                         <div class="col">
                             <article class="card h-100 article-card" data-aos="fade-up" data-aos-delay="{{ loop.index * 50 }}" data-article-url="{{ article.url }}">
+                                <div class="card-top-highlight"></div>
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between mb-2">
-                                        <span class="source-badge"><i class="fa-solid fa-globe me-1"></i>{{ article.source }}</span>
-                                        <small class="text-muted"><i class="fa-regular fa-calendar-days me-1"></i>{{ article.formatted_date }}</small>
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="source-badge"><i class="fa-solid fa-globe"></i>{{ article.source }}</span>
+                                        <small class="date-badge"><i class="fa-regular fa-calendar-days me-1"></i>{{ article.formatted_date }}</small>
                                     </div>
                                     <h5 class="card-title">
                                         <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer" class="article-link">
                                             {{ article.title }}
                                         </a>
                                     </h5>
-                                    <div class="mt-auto pt-3 d-flex justify-content-between align-items-center">
-                                        <a href="{{ article.url }}" class="btn btn-sm read-more" target="_blank" rel="noopener noreferrer">
+                                    <div class="card-description">
+                                        <p>{{ article.title|truncate(100) }}</p>
+                                    </div>
+                                    <div class="mt-auto pt-3 d-flex justify-content-between align-items-center card-actions">
+                                        <a href="{{ article.url }}" class="btn read-more" target="_blank" rel="noopener noreferrer">
                                             Read more <i class="fa-solid fa-arrow-right ms-1"></i>
                                         </a>
-                                        <div>
-                                            <button class="btn btn-sm btn-icon preview-article me-1" data-url="{{ article.url }}" data-title="{{ article.title }}" aria-label="Preview article">
+                                        <div class="action-buttons">
+                                            <button class="btn btn-icon preview-article" data-url="{{ article.url }}" data-title="{{ article.title }}" aria-label="Preview article" data-bs-toggle="tooltip" data-bs-placement="top" title="Preview article">
                                                 <i class="fa-regular fa-eye"></i>
                                             </button>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -55,10 +62,12 @@
         {% endfor %}
     {% else %}
         <div class="empty-state text-center py-5" data-aos="fade-up">
-            <i class="fa-solid fa-dove empty-icon fa-beat-fade"></i>
+            <div class="empty-icon-container">
+                <i class="fa-solid fa-dove empty-icon fa-beat-fade"></i>
+            </div>
             <h3 class="mt-4">No Articles Found</h3>
             <p class="text-muted">We couldn't find any articles at the moment. Please try again later.</p>
-            <button id="retry-btn" class="btn btn-primary mt-3">
+            <button id="retry-btn" class="btn btn-primary btn-lg mt-4">
                 <i class="fa-solid fa-arrows-rotate me-2"></i>Retry
             </button>
         </div>

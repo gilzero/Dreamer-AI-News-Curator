@@ -1,18 +1,55 @@
-<footer class="footer py-4 mt-5">
+<footer class="footer mt-5">
+    <div class="footer-glass-effect"></div>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5><i class="fa-solid fa-dove me-2"></i>Dreamer AI News Curator</h5>
-                <p><i class="fa-solid fa-bolt-lightning me-1"></i>Powered by Dreamer Semantic Search</p>
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="footer-brand">
+                        <h5><i class="fa-solid fa-dove me-2"></i>Dreamer AI News Curator</h5>
+                        <p class="footer-tagline"><i class="fa-solid fa-bolt-lightning me-1"></i>Powered by Dreamer Semantic Search</p>
+                    </div>
+                    <div class="footer-description mt-3">
+                        <p>Curating the latest tech news with AI assistance, bringing you the most relevant articles from across the web.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="footer-links">
+                        <h6 class="footer-heading">Quick Links</h6>
+                        <ul class="footer-nav">
+                            <li><a href="#"><i class="fa-solid fa-house me-2"></i>Home</a></li>
+                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#configModal"><i class="fa-solid fa-gear me-2"></i>Settings</a></li>
+                            <li><a href="https://dreamer.xyz" target="_blank"><i class="fa-solid fa-globe me-2"></i>About</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-connect">
+                        <h6 class="footer-heading">Connect</h6>
+                        <div class="social-links">
+                            <a href="https://dreamer.xyz" class="social-link" target="_blank" title="Website">
+                                <i class="fa-solid fa-globe"></i>
+                            </a>
+                            <a href="https://github.com/gilzero" class="social-link" target="_blank" title="GitHub">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+
+                        </div>
+                        <div class="footer-newsletter mt-3">
+                            <div class="newsletter-badge"><i class="fa-solid fa-newspaper me-2"></i>Stay Updated</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6 text-md-end">
-                <p class="mb-0">
-                    © {{ "now"|datetimeformat("%Y") }} Dreamer AI News Curator
-                </p>
-                <div class="mt-2">
-                    <a href="https://dreamer.xyz" class="social-link" target="_blank">
-                        <i class="fa-solid fa-book"></i>
-                    </a>
+        </div>
+        <div class="footer-bottom">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="copyright mb-0">
+                        © {{ "now"|datetimeformat("%Y") }} Dreamer AI News Curator
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="footer-credits mb-0">Made with <i class="fa-solid fa-heart text-danger mx-1"></i> by Dreamer AI</p>
                 </div>
             </div>
         </div>

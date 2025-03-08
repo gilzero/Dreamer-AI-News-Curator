@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import aiohttp
@@ -227,8 +227,8 @@ async def home(
 
 
 @app.get("/favicon.ico", include_in_schema=False)
-async def favicon():
-    return StaticFiles(directory="static").get_response("favicon.ico")
+async def favicon(request: Request):
+    return FileResponse("static/favicon.ico")
 
 
 @app.get("/health")

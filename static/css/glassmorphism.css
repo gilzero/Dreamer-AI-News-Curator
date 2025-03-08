@@ -1,0 +1,192 @@
+/* Glassmorphism Effects for Dreamer AI News Curator
+   Modern UI elements with glass-like effects */
+
+/* Base glass effect for cards and containers */
+.glass-card,
+.glass-content,
+.chinese-summary-container,
+.original-content-container {
+    background-color: rgba(var(--card-bg-rgb), 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    position: relative;
+}
+
+[data-theme="dark"] .glass-card,
+[data-theme="dark"] .glass-content,
+[data-theme="dark"] .chinese-summary-container,
+[data-theme="dark"] .original-content-container {
+    background-color: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Glass card specific styles */
+.glass-card {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(var(--primary-rgb), 0.15);
+}
+
+/* Glass button styles */
+.glass-btn {
+    background-color: rgba(var(--primary-rgb), 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(var(--primary-rgb), 0.2);
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .glass-btn {
+    background-color: rgba(var(--primary-rgb), 0.15);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.glass-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+    transform: translateY(-3px);
+}
+
+/* Article meta information */
+.article-meta {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.article-meta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    z-index: 1;
+}
+
+.article-title h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+[data-theme="dark"] .article-title h2 {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.article-source {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.source-badge,
+.date-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+[data-theme="dark"] .source-badge,
+[data-theme="dark"] .date-badge {
+    background-color: rgba(var(--primary-rgb), 0.2);
+    color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* AI icon styling */
+.ai-icon {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+/* No content container */
+.no-content-container {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.no-content-icon {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    opacity: 0.7;
+}
+
+.no-content-message {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+/* Content glow effect */
+.content-glow {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0.01) 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Add RGB variables for card backgrounds */
+:root {
+    --card-bg-rgb: 255, 255, 255;
+    --success-color: #10b981;
+    --border-light: rgba(255, 255, 255, 0.2);
+    --border-dark: rgba(0, 0, 0, 0.05);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    --text-on-glass: var(--text-color);
+}
+
+[data-theme="dark"] {
+    --card-bg-rgb: 20, 30, 45; /* Darker background for better contrast */
+    --success-color: #34d399;
+    --border-light: rgba(255, 255, 255, 0.05);
+    --border-dark: rgba(0, 0, 0, 0.2);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --text-on-glass: rgba(255, 255, 255, 0.9);
+}
