@@ -8,7 +8,7 @@ import {
     initializeRefreshButton, 
     initializeRetryButton 
 } from './ui.js';
-import { initializeBookmarks } from './bookmarks.js';
+// import { initializeBookmarks } from './bookmarks.js';
 import { initializeArticlePreview } from './content.js';
 
 /**
@@ -62,7 +62,7 @@ export const initializeApp = () => {
     initializeBackToTop(backToTopBtn);
     initializeRefreshButton(refreshBtn);
     initializeRetryButton(retryBtn);
-    initializeBookmarks(articlesContainer);
+    // initializeBookmarks(articlesContainer);
     initializeArticlePreview(articlesContainer, contentModal, modalElements);
     
     // Hide loading spinner after content loads

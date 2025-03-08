@@ -98,15 +98,15 @@ export const fetchArticleContent = async (url, elements) => {
         if (data.source) {
             switch(data.source) {
                 case 'tavily':
-                    sourceLabel = '<div class="source-indicator mb-3"><span class="badge bg-primary">Tavily</span></div>';
+                    // sourceLabel = '<div class="source-indicator mb-3"><span class="badge bg-primary">Tavily</span></div>';
                     extractedContent.className = 'tavily-content';
                     break;
                 case 'exa':
-                    sourceLabel = '<div class="source-indicator mb-3"><span class="badge bg-success">Exa</span></div>';
+                    // sourceLabel = '<div class="source-indicator mb-3"><span class="badge bg-success">Exa</span></div>';
                     extractedContent.className = 'exa-content';
                     break;
                 case 'fallback':
-                    sourceLabel = '<div class="source-indicator mb-3"><span class="badge bg-warning">Preview</span></div>';
+                    // sourceLabel = '<div class="source-indicator mb-3"><span class="badge bg-warning">Preview</span></div>';
                     extractedContent.className = 'fallback-content';
                     break;
                 default:

@@ -26,13 +26,7 @@ export const initializeArticleCardEffects = (articlesContainer) => {
         articlesContainer.addEventListener('mouseenter', (e) => {
             const card = e.target.closest('.article-card');
             if (card) {
-                const icon = card.querySelector('.fa-bookmark');
-                if (icon) {
-                    icon.classList.add('fa-bounce');
-                    setTimeout(() => {
-                        icon.classList.remove('fa-bounce');
-                    }, 1000);
-                }
+                // Bookmark animation removed
             }
         }, true);
     }
