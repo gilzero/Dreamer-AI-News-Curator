@@ -11,7 +11,8 @@ import logging
 from typing import Optional
 
 import google.generativeai as genai
-from config import GOOGLE_API_KEY, logger
+from config import GEMINI_API_KEY, GEMINI_MODEL, GEMINI_TEMPERATURE, GEMINI_MAX_TOKENS, GEMINI_TOP_P, logger
+from cache import get_cached_summary, cache_summary
 
 async def generate_summary_with_gemini(content: str, title: str = "") -> Optional[str]:
     """
@@ -24,11 +25,17 @@ async def generate_summary_with_gemini(content: str, title: str = "") -> Optiona
     Returns:
         Optional[str]: The generated summary in Simplified Chinese, or None if generation failed
     """
-    if not GOOGLE_API_KEY:
-        logger.warning("GOOGLE_API_KEY not found, skipping summarization")
+    if not GEMINI_API_KEY:
+        logger.warning("GEMINI_API_KEY not found, skipping summarization")
         return None
     
     try:
+        # Check cache first
+        cached_summary = await get_cached_summary(content, title)
+        if cached_summary:
+            logger.info(f"Using cached summary for content with title: {title}")
+            return cached_summary
+            
         # Strip HTML tags from content for better summarization
         clean_content = re.sub(r'<[^>]+>', ' ', content)
         clean_content = re.sub(r'\s+', ' ', clean_content).strip()
@@ -98,21 +105,23 @@ async def generate_summary_with_gemini(content: str, title: str = "") -> Optiona
         """.replace("{context}", clean_content)
         
         # Configure the model
-        model = genai.GenerativeModel('gemini-2.0-flash')
+        model = genai.GenerativeModel(GEMINI_MODEL)
         
         # Generate the summary
         response = await asyncio.to_thread(
             model.generate_content,
             system_prompt,
             generation_config={
-                "temperature": 0.2,
-                "top_p": 0.8,
-                "max_output_tokens": 2048,
+                "temperature": GEMINI_TEMPERATURE,
+                "top_p": GEMINI_TOP_P,
+                "max_output_tokens": GEMINI_MAX_TOKENS,
             }
         )
         
         if response and response.text:
             logger.info(f"Successfully generated summary with Gemini")
+            # Cache the summary
+            await cache_summary(content, title, response.text)
             return response.text
         else:
             logger.warning(f"Empty response from Gemini API")

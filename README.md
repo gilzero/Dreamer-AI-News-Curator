@@ -1,4 +1,3 @@
-
 # 🕊️ Dreamer AI News Curator
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://example.com)  <!-- Replace with your actual build status badge -->
@@ -11,6 +10,7 @@ AI-powered tech news curated just for you, with a beautiful bird-themed design. 
 *   **AI-Powered Curation:** Fetches articles based on keywords and preferred domains.
 *   **Content Extraction:**  Uses Tavily and Exa APIs for reliable content extraction, with a fallback mechanism for robust performance.
 *   **Chinese Summarization:** Generates concise summaries in Simplified Chinese using Google Gemini.
+*   **Efficient Caching:** Implements Upstash Redis caching for fetched articles, extracted content, and AI summaries to reduce API calls and improve performance.
 *   **Beautiful UI:**  A clean, modern, and responsive user interface with a bird-themed design.
 *   **Dark/Light Mode:**  Supports both dark and light themes for comfortable reading.
 *   **Customizable:**  Configure domains, articles per domain, and lookback days via URL parameters.
@@ -69,6 +69,7 @@ AI-powered tech news curated just for you, with a beautiful bird-themed design. 
     *   Exa (formerly Metaphor)
     *   Tavily
     *   Google Gemini (optional, for Chinese summarization)
+    *   Upstash Redis (for caching)
 
 ### Installation
 
@@ -99,15 +100,19 @@ AI-powered tech news curated just for you, with a beautiful bird-themed design. 
     ```bash
     cp .env.example .env
     ```
-
-    Edit the `.env` file and replace the placeholders with your actual API keys:
-
+    
+    Then edit the `.env` file to add your API keys and Upstash Redis credentials:
+    
     ```
-    EXA_API_KEY="your-exa-api-key"
-    TAVILY_API_KEY="your-tavily-api-key"
-    GOOGLE_API_KEY="your-google-gemini-api-key"  # Optional
+    EXA_API_KEY="your-api-key-here"
+    TAVILY_API_KEY="your-api-key-here"
+    GEMINI_API_KEY="your-api-key-here"
+    
+    UPSTASH_REDIS_REST_URL="your-upstash-redis-url"
+    UPSTASH_REDIS_REST_TOKEN="your-upstash-redis-token"
     ```
-    **Important:**  Do *not* commit your `.env` file to version control.  It's already included in `.gitignore`.
+    
+    You can get Upstash Redis credentials by creating a database at [Upstash Console](https://console.upstash.com/).
 
 ### Running the Application
 
@@ -136,6 +141,29 @@ http://localhost:8081/?domains=techcrunch.com,wired.com&articles_per_domain=10&l
 ```
 
 This will fetch 10 articles from TechCrunch and Wired, looking back 7 days.
+
+### Caching Configuration
+
+The application uses Upstash Redis for caching to reduce API calls and improve performance. The caching is configured with the following TTL (Time To Live) values:
+
+* **Article Cache TTL**: 24 hours - Cached articles fetched from news sources
+* **Content Cache TTL**: 24 hours - Cached article content extracted from URLs
+* **Summary Cache TTL**: 7 days - Cached AI-generated summaries
+
+Cache keys are generated using a combination of:
+* For articles: domain name and configuration parameters
+* For content: article URL
+* For summaries: full article content and title (optimized with SHA-256 hashing for large content)
+
+These values can be adjusted in the `cache.py` file:
+
+```python
+# Cache expiration times (in seconds)
+ARTICLE_CACHE_TTL = 60 * 60 * 24  # 24 hours
+SUMMARY_CACHE_TTL = 60 * 60 * 24 * 7  # 7 days
+```
+
+If Upstash Redis credentials are not provided in the `.env` file, caching will be disabled automatically, and the application will fall back to making API calls for each request.
 
 ## API Endpoints
 
@@ -180,7 +208,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## TODO
 
 *   Implement comprehensive unit tests.
-*   Add caching for improved performance.
 *   Consider adding user authentication and personalization features.
 *   Explore alternative content extraction methods.
 *   Improve error handling and user feedback.
@@ -190,3 +217,5 @@ update_20250309_032415_UTC+0800_deer
 update_20250309_092151_UTC+0800_deer_blackhole chk pt
 
 update_20250309_092235_UTC+0800_dragon
+
+update_20250309_103644_UTC+0800_dog_mars added cache

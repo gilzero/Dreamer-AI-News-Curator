@@ -15,12 +15,17 @@ logging.basicConfig(
 logger = logging.getLogger("technews")
 
 # Configure Google Gemini API
-GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY', '')
-if GOOGLE_API_KEY:
-    genai.configure(api_key=GOOGLE_API_KEY)
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+GEMINI_MODEL = os.getenv('GEMINI_MODEL', 'gemini-2.0-flash')
+GEMINI_TEMPERATURE = float(os.getenv('GEMINI_TEMPERATURE', '0.3'))
+GEMINI_MAX_TOKENS = int(os.getenv('GEMINI_MAX_TOKENS', '2048'))
+GEMINI_TOP_P = float(os.getenv('GEMINI_TOP_P', '0.8'))
+
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
     logger.info("Google Gemini API configured successfully")
 else:
-    logger.warning("GOOGLE_API_KEY not found, summarization will be disabled")
+    logger.warning("GEMINI_API_KEY not found, summarization will be disabled")
 
 # Dreamer AI News Curator Configuration
 class Config:

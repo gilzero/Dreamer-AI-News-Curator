@@ -1,3 +1,4 @@
+# file: services.py
 import aiohttp
 import ssl
 import certifi
@@ -13,6 +14,7 @@ from models import Article
 from config import Config, logger
 from utils import extract_title_from_content
 from ai_services import generate_summary_with_gemini
+from cache import get_cached_articles_for_domain, cache_articles_for_domain, get_cached_article_content, cache_article_content
 
 class ArticleFetcher:
     def __init__(self, api_key: str):
@@ -21,6 +23,13 @@ class ArticleFetcher:
 
     async def fetch_for_domain(self, session: aiohttp.ClientSession, domain: str, config: dict) -> List[Dict]:
         try:
+            # Check cache first
+            cached_articles = await get_cached_articles_for_domain(domain, config)
+            if cached_articles:
+                logger.info(f"Using cached articles for {domain}")
+                return cached_articles
+                
+            # If not in cache, fetch from API
             now = datetime.now()
             start_date = now - timedelta(days=config['lookback_days'])
 
@@ -41,6 +50,11 @@ class ArticleFetcher:
                 data = await response.json()
                 results = data.get('results', [])
                 logger.info(f"Fetched {len(results)} articles from {domain}")
+                
+                # Cache the results
+                if results:
+                    await cache_articles_for_domain(domain, config, results)
+                    
                 return results
         except Exception as e:
             logger.error(f"Error fetching articles from {domain}: {str(e)}")
@@ -79,14 +93,14 @@ async def try_tavily_extraction(url, domain):
     """
     Try to extract content using Tavily API
     """
+    # Check cache first
+    cached_content = await get_cached_article_content(url)
+    if cached_content and cached_content.get("source") == "tavily":
+        logger.info(f"Using cached Tavily content for {url}")
+        return cached_content
+        
     tavily_api_key = os.getenv('TAVILY_API_KEY', '')
-    
-    # Special handling for sites that Tavily has trouble with
-    if "36kr.com" in domain or "news.qq.com" in domain:
-        logger.info(f"Using custom handling for {domain}")
-        # Still try Tavily, but if it fails we'll fall back to Exa or our fallback content
-        # This gives Tavily a chance to work if they've improved their extraction for these sites
-    
+        
     # If no API key, skip Tavily
     if not tavily_api_key:
         logger.warning("TAVILY_API_KEY not found, skipping Tavily extraction")
@@ -124,12 +138,17 @@ async def try_tavily_extraction(url, domain):
                     # Try to extract a title from the content
                     title = extract_title_from_content(content) or f"Article from {domain}"
                     
-                    return {
+                    tavily_result = {
                         "title": title,
                         "content": content,
                         "url": result.get("url", url),
                         "source": "tavily"
                     }
+                    
+                    # Cache the result
+                    await cache_article_content(url, tavily_result)
+                    
+                    return tavily_result
                 
                 logger.warning(f"No results found for {url} using Tavily")
                 return None
@@ -143,6 +162,12 @@ async def try_exa_extraction(url, domain):
     """
     Try to extract content using Exa API
     """
+    # Check cache first
+    cached_content = await get_cached_article_content(url)
+    if cached_content and cached_content.get("source") == "exa":
+        logger.info(f"Using cached Exa content for {url}")
+        return cached_content
+        
     exa_api_key = os.getenv('EXA_API_KEY', '')
     
     # If no API key, skip Exa
@@ -203,12 +228,17 @@ async def try_exa_extraction(url, domain):
                     </div>
                     """
                     
-                    return {
+                    exa_result = {
                         "title": title,
                         "content": formatted_content,
                         "url": url,
                         "source": "exa"
                     }
+                    
+                    # Cache the result
+                    await cache_article_content(url, exa_result)
+                    
+                    return exa_result
                 
                 logger.warning(f"No results found for {url} using Exa")
                 return None

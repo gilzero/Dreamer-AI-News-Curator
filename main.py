@@ -1,3 +1,4 @@
+# file: main.py
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -18,7 +19,8 @@ from services import (
 )
 from ai_services import generate_summary_with_gemini
 from utils import datetimeformat
-from config import GOOGLE_API_KEY
+from config import GEMINI_API_KEY
+from cache import get_cached_article_content
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -91,11 +93,23 @@ async def extract_content(url: str):
     from urllib.parse import urlparse
     domain = urlparse(url).netloc
     
+    # Check cache first for any content from this URL
+    cached_content = await get_cached_article_content(url)
+    if cached_content:
+        logger.info(f"Using cached content for {url}")
+        # If the cached content doesn't have a Chinese summary but we have Gemini API key,
+        # generate and add the summary
+        if GEMINI_API_KEY and "chinese_summary" not in cached_content:
+            summary = await generate_summary_with_gemini(cached_content["content"], cached_content.get("title", ""))
+            if summary:
+                cached_content["chinese_summary"] = summary
+        return cached_content
+    
     # Try Tavily API first (better for article extraction)
     tavily_result = await try_tavily_extraction(url, domain)
     if tavily_result and not tavily_result.get("is_fallback"):
         # Add Chinese summary if Google API key is available
-        if GOOGLE_API_KEY:
+        if GEMINI_API_KEY:
             summary = await generate_summary_with_gemini(tavily_result["content"], tavily_result.get("title", ""))
             if summary:
                 tavily_result["chinese_summary"] = summary
@@ -105,7 +119,7 @@ async def extract_content(url: str):
     exa_result = await try_exa_extraction(url, domain)
     if exa_result and not exa_result.get("is_fallback"):
         # Add Chinese summary if Google API key is available
-        if GOOGLE_API_KEY:
+        if GEMINI_API_KEY:
             summary = await generate_summary_with_gemini(exa_result["content"], exa_result.get("title", ""))
             if summary:
                 exa_result["chinese_summary"] = summary
