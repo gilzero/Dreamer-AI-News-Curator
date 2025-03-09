@@ -12,7 +12,7 @@
     {% if grouped_articles %}
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="section-title" data-aos="fade-up"><i class="fa-solid fa-sparkles me-2 fa-fade"></i>Latest Articles</h2>
+                <h2 class="section-title" data-aos="fade-up"><i class="fa-solid fa-sparkles me-2 fa-fade"></i>Latest News</h2>
                 <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Curated tech news from around the web, updated daily</p>
             </div>
         </div>
@@ -23,7 +23,7 @@
                     <h3 class="source-title"><i class="fa-solid fa-feather-pointed"></i>{{ source }}</h3>
                     <div class="source-line"></div>
                 </div>
-                <p class="source-description">Latest tech news from {{ source }}</p>
+                <p class="source-description">News from {{ source }}</p>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 article-grid">
                     {% for article in articles %}
                         <div class="col">

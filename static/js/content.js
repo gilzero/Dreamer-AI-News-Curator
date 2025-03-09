@@ -128,13 +128,13 @@ const applySourceStyling = (data, extractedContent) => {
     if (data.source) {
         switch(data.source) {
             case 'tavily':
-                extractedContent.className = 'tavily-content glass-content';
+                extractedContent.className = 'tavily-content';
                 break;
             case 'exa':
-                extractedContent.className = 'exa-content glass-content';
+                extractedContent.className = 'exa-content';
                 break;
             case 'fallback':
-                extractedContent.className = 'fallback-content glass-content';
+                extractedContent.className = 'fallback-content';
                 break;
             default:
                 extractedContent.className = 'glass-content';
